@@ -5,23 +5,29 @@
 int main(int argc, char** argv) {
 	//sf::Window window(sf::VideoMode(800, 600),"my window");
 	//while (true);
-	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
 	
 	window.setFramerateLimit(60);
 
 	//sf::CircleShape shape(20.f);
 	//shape.setFillColor(sf::Color::Green);
-	sf::Texture texture;
-	if (!texture.loadFromFile("sprites\\1.png")) {
+	sf::Texture textureChar;
+	sf::Texture textureBack;
+	if (!textureChar.loadFromFile("sprites\\1.png")) {
+		std::cout << "sprite error";
+	}
+	if (!textureBack.loadFromFile("sprites\\back.jpg")) {
 		std::cout << "sprite error";
 	}
 
 
-	sf::Sprite sprite(texture);
+	sf::Sprite spriteChar(textureChar);
+	sf::Sprite spriteBack(textureBack);
+	sf::Sprite spriteBack2(textureBack);
 
-	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
-	sprite.setScale(0.5f, 0.5f);
-
+	spriteChar.setOrigin(textureChar.getSize().x / 2, textureChar.getSize().y / 2);
+	spriteChar.setScale(0.5f, 0.5f);
+	spriteBack2.setPosition(1280, 0);
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -32,28 +38,36 @@ int main(int argc, char** argv) {
 			if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
 				case sf::Keyboard::Key::Left:
-					sprite.move(-10, 0);
+					spriteChar.move(-10, 0);
 					break;
 				case sf::Keyboard::Key::Right:
-					sprite.move(10, 0);
+					spriteChar.move(10, 0);
 					break;
 				case sf::Keyboard::Key::Up:
-					sprite.move(0, -10);
+					spriteChar.move(0, -10);
 					break;
 				case sf::Keyboard::Key::Down:
-					sprite.move(0, 10);
+					spriteChar.move(0, 10);
 					break;
 				}
 			}
 			if (event.type == sf::Event::MouseButtonPressed) {
-				sprite.setPosition(event.mouseButton.x, event.mouseButton.y);
+				spriteChar.setPosition(event.mouseButton.x, event.mouseButton.y);
 			}
 
 		}
-		sprite.move(1.f, 0.f);
+		spriteBack.move(-1.f, 0.f);
 
 		window.clear();
-		window.draw(sprite);
+
+		window.draw(spriteBack);
+
+		
+		spriteBack2.move(-1.f, 0.f);
+		window.draw(spriteBack2);
+
+		window.draw(spriteChar);
+
 		window.display();
 	}
 
