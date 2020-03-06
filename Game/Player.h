@@ -5,10 +5,14 @@
 class Player
 {
 public:
-	Player() {
+	Player();
+	~Player();
+	sf::Sprite playerSprite;
 
-	}
 private:
+	
 
+	sf::Texture playerTexture;
+	
 };
 

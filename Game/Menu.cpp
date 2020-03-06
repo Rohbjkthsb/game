@@ -72,7 +72,9 @@ void Menu::processEvents()
 
 			if (StartGameBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
 			{
-				//запуск игры
+				game = new Game(window, windowWidth, windowHeight);
+				game->Run();
+				exit = true;
 			}
 			else {
 				if (QuitBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
