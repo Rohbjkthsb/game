@@ -3,6 +3,8 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include "Player.h"
+#include "World.h"
+
 
 class Game
 {
@@ -15,6 +17,7 @@ public:
 
 private:
 	Player* player;
+	World* world;
 	
 
 	void draw();
@@ -25,6 +28,8 @@ private:
 	size_t windowWidth;
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
+	sf::Texture backgroundTexture2;
+	sf::Sprite backgroundSprite2;
 	sf::Music music;
 
 	bool exit;
