@@ -7,11 +7,12 @@ class Player
 public:
 	Player();
 	~Player();
+	void Jump();
 	sf::Sprite playerSprite;
 
 private:
+	int Speed;
 	
-
 	sf::Texture playerTexture;
 	
 };
