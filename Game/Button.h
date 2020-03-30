@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+
 class Button
 {
 public:
@@ -8,9 +9,7 @@ public:
 	~Button();
 
 	bool Check(sf::Vector2i mousePosition);
-
 	bool getPress();
-
 	void Update(sf::Vector2i mousePosition, bool buttonPressed);
 
 	sf::Sprite* GetSpritePointer();

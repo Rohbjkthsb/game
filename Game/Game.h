@@ -2,9 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <string>
-#include "Player.h"
-#include "World.h"
-
+#include "Dino.h"
+#include "Hurdle.h"
 
 class Game
 {
@@ -14,23 +13,23 @@ public:
 	~Game();
 	void Run();
 
-
 private:
-	Player* player;
-	World* world;
-	
+	sf::RenderWindow* window;
+	sf::Image icon;
+	sf::Texture groundTexture;
+	sf::Sprite groundSprite;
+	sf::Sprite _groundSprite;
+
+	Dino* dino;
+	Hurdle* hurdle;
 
 	void draw();
-	void processEvents();
+	void update();
 
-	sf::RenderWindow* window;
 	size_t windowHeight;
 	size_t windowWidth;
-	sf::Texture backgroundTexture;
-	sf::Sprite backgroundSprite;
-	sf::Texture backgroundTexture2;
-	sf::Sprite backgroundSprite2;
-	sf::Music music;
 
 	bool exit;
+
+	int frames;
 };

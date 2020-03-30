@@ -5,9 +5,9 @@ Menu::Menu(size_t _width, size_t _height)
 	window = new sf::RenderWindow();
 	windowWidth = _width;
 	windowHeight = _height;
-	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "SFML", sf::Style::Close);
+	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dino Chrome", sf::Style::Close);
 	window->setFramerateLimit(60);
-	icon.loadFromFile("Sprites/icon.png");
+	icon.loadFromFile("Sprites/Dino/Dino_Stand.png");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
 	backgroundTexture.loadFromFile("Sprites/back.png");
@@ -15,7 +15,6 @@ Menu::Menu(size_t _width, size_t _height)
 	backgroundSprite.setTexture(backgroundTexture);
 	backgroundSprite.setScale(sf::Vector2f(window->getSize().x / 1080, window->getSize().y / 1365));
 	backgroundSprite.setScale(sf::Vector2f((float)window->getSize().x / (float)backgroundTexture.getSize().x, (float)window->getSize().y / (float)backgroundTexture.getSize().y));
-
 
 	StartGameBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Press_Play_Button.png", "Sprites/Play_Button.png");
 	AudioBtn = new Button(sf::Vector2f(window->getSize().x - 150, window->getSize().y-150), sf::Vector2i(150, 150), "Sprites/Audio_Off_Button.png", "Sprites/Audio_On_Button.png");
@@ -47,6 +46,7 @@ void Menu::processEvents()
 {
 	sf::Event event;
 	sf::Vector2f mouse = sf::Vector2f(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+
 	while (window->pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
@@ -65,33 +65,31 @@ void Menu::processEvents()
 
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 		{
-			StartGameBtn->Update(sf::Mouse::getPosition(*window), false);
-			ScoreBtn->Update(sf::Mouse::getPosition(*window), false);
-			ConfigBtn->Update(sf::Mouse::getPosition(*window), false);
-			QuitBtn->Update(sf::Mouse::getPosition(*window), false);
-
 			if (StartGameBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
 			{
 				game = new Game(window, windowWidth, windowHeight);
 				game->Run();
 				exit = true;
+				break;
 			}
-			else {
-				if (QuitBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
-					exit = true;
 
-				if (AudioBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+			else if (QuitBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+			{
+				exit = true;
+				break;
+			}
+
+			else if (AudioBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+			{
+				if (AudioBtn->getPress() == false)
 				{
-					if (AudioBtn->getPress() == false)
-					{
-						AudioBtn->Update(sf::Mouse::getPosition(*window), true);
-						music.pause();
-					}
-					else
-					{
-						AudioBtn->Update(sf::Mouse::getPosition(*window), false);
-						music.play();
-					}
+					AudioBtn->Update(sf::Mouse::getPosition(*window), true);
+					music.pause();
+				}
+				else
+				{
+					AudioBtn->Update(sf::Mouse::getPosition(*window), false);
+					music.play();
 				}
 			}
 		}
@@ -101,7 +99,6 @@ void Menu::processEvents()
 void Menu::Run()
 {
 	exit = false;
-
 	while (!exit)
 	{
 		draw();
@@ -109,7 +106,4 @@ void Menu::Run()
 	}
 }
 
-Menu::~Menu()
-{
-
-}
+Menu::~Menu(){}
