@@ -6,11 +6,11 @@ Game::Game(sf::RenderWindow * _window, size_t _width, size_t _height)
 	windowWidth = _width;
 	windowHeight = _height;
 	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dyno Chrome", sf::Style::Close);
-	icon.loadFromFile("Sprites/Dino/Dino_Stand.png");
+	icon.loadFromFile("Sprites/Game/Dino_Stand.png");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	window->setFramerateLimit(60);
 
-	groundTexture.loadFromFile("Sprites/Dino/ground.png");
+	groundTexture.loadFromFile("Sprites/Game/ground.png");
 	groundTexture.setSmooth(true);
 	groundSprite.setTexture(groundTexture);
 	groundSprite.setPosition(0,450);
@@ -41,8 +41,8 @@ void Game::draw()
 
 void Game::update()
 {
-	dino->Jump();
-	dino->update();
+	dino->Control(frames);
+	dino->update(frames);
 	hurdle->update(frames);
 	frames = ((frames + 1) % 60) + 1;
 }

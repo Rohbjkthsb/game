@@ -4,7 +4,7 @@ Hurdle::Hurdle()
 {
 	position = sf::Vector2f(1280, 603);
 
-	hurdleTexture.loadFromFile("Sprites/Hurdle1.png");
+	hurdleTexture.loadFromFile("Sprites/Game/Hurdle1.png");
 	hurdleTexture.setSmooth(true);
 	hurdleSprite.setTexture(hurdleTexture);
 	hurdleSprite.setPosition(position);

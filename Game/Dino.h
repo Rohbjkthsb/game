@@ -9,8 +9,8 @@ public:
 	~Dino();
 	void draw(sf::RenderWindow *window);
 	bool checkDinoCenter();
-	void Jump();
-	void update();
+	void Control(int frames);
+	void update(int frames);
 
 private:
 	sf::Vector2f position;
@@ -18,9 +18,8 @@ private:
 	sf::Vector2f gravity;
 	sf::Sprite dinoSprite;
 	sf::Texture dinoTexture;
+	sf::IntRect rect;
 
-	int t;
-	
 	bool jump = false;
 	bool ground = true;
 };
