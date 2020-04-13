@@ -54,6 +54,3 @@ sf::Sprite* Button::GetSpritePointer()
 	if (press) return &pressSprite;
 	else return &unpressSprite;
 }
-
-
-

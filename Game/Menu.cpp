@@ -7,25 +7,26 @@ Menu::Menu(size_t _width, size_t _height)
 	windowHeight = _height;
 	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dino Chrome", sf::Style::Close);
 	window->setFramerateLimit(60);
-	icon.loadFromFile("Sprites/Game/Dino_Stand.png");
+	icon.loadFromFile("Sprites/Game/Dino_Stand.PNG");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	backgroundTexture.loadFromFile("Sprites/Menu/back.png");
+	backgroundTexture.loadFromFile("Sprites/Menu/back.PNG");
 	backgroundTexture.setSmooth(true);
 	backgroundSprite.setTexture(backgroundTexture);
 	backgroundSprite.setScale(sf::Vector2f(window->getSize().x / 1080, window->getSize().y / 1365));
 	backgroundSprite.setScale(sf::Vector2f((float)window->getSize().x / (float)backgroundTexture.getSize().x, (float)window->getSize().y / (float)backgroundTexture.getSize().y));
 
-	StartGameBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Menu/Press_Play_Button.png", "Sprites/Menu/Play_Button.png");
-	AudioBtn = new Button(sf::Vector2f(window->getSize().x - 150, window->getSize().y-150), sf::Vector2i(150, 150), "Sprites/Menu/Audio_Off_Button.png", "Sprites/Menu/Audio_On_Button.png");
-	ScoreBtn = new Button(sf::Vector2f(150, 0), sf::Vector2i(150, 150), "Sprites/Menu/Press_Score_Button.png", "Sprites/Menu/Score_Button.png");
-	ConfigBtn = new Button(sf::Vector2f(0, 0), sf::Vector2i(150, 150), "Sprites/Menu/Press_Config_Button.png", "Sprites/Menu/Config_Button.png");
-	QuitBtn = new Button(sf::Vector2f(0, window->getSize().y - 150), sf::Vector2i(150, 150), "Sprites/Menu/Press_Quit_Button.png", "Sprites/Menu/Quit_Button.png");
+	StartGameBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Menu/Press_Play_Button.PNG", "Sprites/Menu/Play_Button.PNG");
+	AudioBtn = new Button(sf::Vector2f(window->getSize().x - 150, window->getSize().y-150), sf::Vector2i(150, 150), "Sprites/Menu/Audio_Off_Button.PNG", "Sprites/Menu/Audio_On_Button.PNG");
+	ScoreBtn = new Button(sf::Vector2f(150, 0), sf::Vector2i(150, 150), "Sprites/Menu/Press_Score_Button.PNG", "Sprites/Menu/Score_Button.PNG");
+	ConfigBtn = new Button(sf::Vector2f(0, 0), sf::Vector2i(150, 150), "Sprites/Menu/Press_Config_Button.PNG", "Sprites/Menu/Config_Button.PNG");
+	QuitBtn = new Button(sf::Vector2f(0, window->getSize().y - 150), sf::Vector2i(150, 150), "Sprites/Menu/Press_Quit_Button.PNG", "Sprites/Menu/Quit_Button.PNG");
 	
 	music.openFromFile("Music/menu.wav");
 	music.play();
 	music.setLoop(true);
 	music.setVolume(60);
+	
 }
 
 void Menu::draw()

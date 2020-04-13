@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <string>
 
 class Button
 {
@@ -29,4 +28,3 @@ private:
 
 	bool press = false;
 };
-

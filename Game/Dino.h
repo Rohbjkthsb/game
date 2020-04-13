@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <string>
+#include <vector>
 
 class Dino
 {
@@ -9,10 +9,22 @@ public:
 	~Dino();
 	void draw(sf::RenderWindow *window);
 	bool checkDinoCenter();
-	void Control(int frames);
-	void update(int frames);
+	void control(float time);
+	void update(float time);
+	void reDino();
+	int getX();
+	int getY();
+	int getRectW();
+	int getRectH();
 
 private:
+	std::vector<sf::Texture> textures;
+	sf::Texture dinoStand;
+	sf::Texture dino_Run_R;
+	sf::Texture dino_Run_L;
+	sf::Texture dino_RunDown_R;
+	sf::Texture dino_RunDown_L;
+	sf::Clock clock;
 	sf::Vector2f position;
 	sf::Vector2f velocity;
 	sf::Vector2f gravity;
@@ -20,7 +32,8 @@ private:
 	sf::Texture dinoTexture;
 	sf::IntRect rect;
 
-	bool jump = false;
+	float stepCount;
+
 	bool ground = true;
 };
 
