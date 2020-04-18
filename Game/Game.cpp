@@ -17,6 +17,14 @@ Game::Game(sf::RenderWindow * _window, size_t _width, size_t _height)
 	groundSprite.setPosition(0,450);
 	_groundSprite.setPosition(1280, 450);
 
+	font.loadFromFile("Fonts/Dino.ttf");
+	pointsScoring.setFont(font);
+	points = 0;
+	pointsScoring.setString(std::to_string(points));
+	pointsScoring.setCharacterSize(16);
+	pointsScoring.setFillColor(sf::Color::Black);
+	pointsScoring.setPosition(10, 10);
+
 	cloudTimer = 0;
 	randCloud = 0;
 
@@ -26,42 +34,43 @@ Game::Game(sf::RenderWindow * _window, size_t _width, size_t _height)
 
 void Game::draw()
 {
+	window->display();
 	window->clear(sf::Color::White);
 	window->draw(groundSprite);
 	window->draw(_groundSprite);
+	window->draw(pointsScoring);
 	dino->draw(window);
 
-	for (int i = 0; i < clouds.size(); i++) {
+	for (size_t i = 0; i < clouds.size(); i++) {
 		clouds[i]->draw(window);
 	}
 
-	for (int i = 0; i < hurdles.size(); i++) {
+	for (size_t i = 0; i < hurdles.size(); i++) {
 		hurdles[i]->draw(window);
 	}
 
-	if (groundSprite.getPosition().x < -1270)
-		groundSprite.setPosition(1280, 450);
-	if (_groundSprite.getPosition().x < -1270)
-		_groundSprite.setPosition(1280, 450);
-
-	if (dino->checkDinoCenter()) {
-		groundSprite.move(-10.f * time, 0.f);
-		_groundSprite.move(-10.f * time, 0.f);
+	if (!gameOver)
+	{
+		if (groundSprite.getPosition().x < -1270)
+			groundSprite.setPosition(1280, 450);
+		if (_groundSprite.getPosition().x < -1270)
+			_groundSprite.setPosition(1280, 450);
+		if (dino->checkDinoCenter()) {
+			groundSprite.move(-10.f * time, 0.f);
+			_groundSprite.move(-10.f * time, 0.f);
+		}
 	}
-
-	window->display();
 }
 
 void Game::update()
 {
-	if (!gameOver)
-	{
-		dino->control(time);
-		dino->update(time);
-		checkLose();
-		updateClouds();
-		updateHurdles();
-	}
+	dino->control(time);
+	dino->update(time);
+	checkLose();
+	updateClouds();
+	updateHurdles();
+	points = points + 50 * time;
+	pointsScoring.setString(std::to_string(points));
 }
 
 void Game::Run()
@@ -69,25 +78,23 @@ void Game::Run()
 	exit = false;
 	gameOver = false;
 	dino = new Dino();
-
+	sf::Vector2f mouse = sf::Vector2f(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
 
 	while (!exit)
 	{
-		time = clock.getElapsedTime().asMicroseconds(); 
-		clock.restart(); 
+		time = clock.getElapsedTime().asMicroseconds();
+		clock.restart();
 		time = time / 16000;
 
-		if (gameOver)
+		if (!gameOver)
+			update();
+		else 
 		{
-			dino->reDino();
-			hurdles.clear();
-			clouds.clear();
-
-			gameOver = false;
+			retryBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/Return_Button.PNG", "Sprites/Game/Return_Button.PNG");
+			window->draw(*retryBtn->GetSpritePointer());
 		}
 
 		draw();
-		update();
 
 		sf::Event event;
 		while (window->pollEvent(event))
@@ -97,23 +104,28 @@ void Game::Run()
 				exit = true;
 				break;
 			}
+			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+			{
+				if (retryBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+				{
+					dino->reDino();
+					hurdles.clear();
+					clouds.clear();
+					delete retryBtn;
+					points = 0;
+					gameOver = false;
+				}
+			}
 		}
 	}
 }
-
-
-
-
-
-
-
 
 
 void Game::updateClouds()
 {
 	cloudTimer += 1 * time;
 
-	for (int i = 0; i < clouds.size(); i++) {
+	for (size_t i = 0; i < clouds.size(); i++) {
 		clouds[i]->update(time);
 		if (clouds[i]->getX() < -100) {
 			delete clouds[i];
@@ -138,7 +150,7 @@ void Game::updateHurdles()
 {
 	hurdleTimer += 1 * time;
 
-	for (int i = 0; i < hurdles.size(); i++) 
+	for (size_t i = 0; i < hurdles.size(); i++)
 	{
 		hurdles[i]->update(time);
 		if (hurdles[i]->getX() < -100) {
@@ -163,7 +175,7 @@ void Game::addHurdle ()
 
 void Game::checkLose()
 {
-	for (int i = 0; i < hurdles.size(); i++)
+	for (size_t i = 0; i < hurdles.size(); i++)
 	{
 		if (checkCollision(dino->getX(), dino->getY(), dino->getRectW(), dino->getRectH(), hurdles[i]->getX(), hurdles[i]->getY(), hurdles[i]->getRectW(), hurdles[i]->getRectH()))
 			gameOver = true;
@@ -195,10 +207,11 @@ bool Game::checkCollision(int dx, int dy, int dw, int dh, int hx, int hy, int hw
 Game::~Game()
 {
 	delete dino;
-	for (int i = 0; i < hurdles.size(); i++) {
+	for (size_t i = 0; i < hurdles.size(); i++) {
 		delete hurdles[i];
 	}
-	for (int i = 0; i < clouds.size(); i++) {
+	for (size_t i = 0; i < clouds.size(); i++) {
 		delete clouds[i];
 	}
 }
+

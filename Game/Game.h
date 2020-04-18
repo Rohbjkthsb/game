@@ -1,10 +1,13 @@
 #pragma once
 #include <vector>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
 #include "Dino.h"
 #include "Hurdle.h"
 #include "Cloud.h"
+#include "Button.h"
 
 class Game
 {
@@ -20,8 +23,12 @@ private:
 	sf::Sprite groundSprite;
 	sf::Sprite _groundSprite;
 	sf::Clock clock;
+	sf::Text pointsScoring;
+	sf::Font font;
 
+	Button* retryBtn;
 	Dino* dino;
+
 	std::vector<Cloud*> clouds;
 	std::vector<Hurdle*> hurdles;
 
@@ -42,7 +49,8 @@ private:
 
 	float time;
 	float cloudTimer;
-	int randCloud; 
+	int points;
+	int randCloud;
 
 	float hurdleTimer;
 	int randHurdle;

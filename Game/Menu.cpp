@@ -90,7 +90,7 @@ void Menu::processEvents()
 				else
 				{
 					AudioBtn->Update(sf::Mouse::getPosition(*window), false);
-					music.play();
+					//music.play();
 				}
 			}
 		}
