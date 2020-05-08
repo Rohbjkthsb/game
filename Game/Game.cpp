@@ -1,10 +1,10 @@
 #include "Game.h"
 
-Game::Game(sf::RenderWindow * _window, size_t _width, size_t _height)
+Game::Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 {
-	window = _window;
-	windowWidth = _width;
-	windowHeight = _height;
+	this->window = window;
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dino Chrome", sf::Style::Close);
 	icon.loadFromFile("Sprites/Game/Dino_Stand.PNG");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());

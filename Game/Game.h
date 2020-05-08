@@ -12,7 +12,7 @@
 class Game
 {
 public:
-	Game(sf::RenderWindow * _window, size_t _width, size_t _height);
+	Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight);
 	~Game();
 	void Run();
 

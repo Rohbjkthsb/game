@@ -7,7 +7,7 @@
 class Menu
 {
 public:
-	Menu(size_t width, size_t height);
+	Menu(size_t windowWidth, size_t windowHeight);
 	~Menu();
 	void Run();
 

@@ -67,6 +67,7 @@ void Hurdle::draw(sf::RenderWindow *window)
 void Hurdle::update(float time)
 {
 	stepCount += 1 * time;
+
 	if (stepCount > 60)
 		stepCount = 0;
 

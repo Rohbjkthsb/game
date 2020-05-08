@@ -1,10 +1,10 @@
 #include "Menu.h"
 
-Menu::Menu(size_t _width, size_t _height)
+Menu::Menu(size_t windowWidth, size_t windowHeight)
 {
 	window = new sf::RenderWindow();
-	windowWidth = _width;
-	windowHeight = _height;
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dino Chrome", sf::Style::Close);
 	window->setFramerateLimit(60);
 	icon.loadFromFile("Sprites/Game/Dino_Stand.PNG");
@@ -13,7 +13,7 @@ Menu::Menu(size_t _width, size_t _height)
 	backgroundTexture.loadFromFile("Sprites/Menu/back.PNG");
 	backgroundTexture.setSmooth(true);
 	backgroundSprite.setTexture(backgroundTexture);
-	backgroundSprite.setScale(sf::Vector2f(window->getSize().x / 1080, window->getSize().y / 1365));
+	backgroundSprite.setScale(sf::Vector2f(window->getSize().x / 720, window->getSize().y / 1280));
 	backgroundSprite.setScale(sf::Vector2f((float)window->getSize().x / (float)backgroundTexture.getSize().x, (float)window->getSize().y / (float)backgroundTexture.getSize().y));
 
 	StartGameBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Menu/Press_Play_Button.PNG", "Sprites/Menu/Play_Button.PNG");
@@ -32,13 +32,11 @@ void Menu::draw()
 {
 	window->clear(sf::Color::White);
 	window->draw(backgroundSprite);
-
 	window->draw(*StartGameBtn->GetSpritePointer());
 	window->draw(*AudioBtn->GetSpritePointer());
 	window->draw(*ScoreBtn->GetSpritePointer());
 	window->draw(*ConfigBtn->GetSpritePointer());
 	window->draw(*QuitBtn->GetSpritePointer());
-
 	window->display();
 }
 
