@@ -27,7 +27,7 @@ Game::Game(sf::RenderWindow * _window, size_t _width, size_t _height)
 
 	cloudTimer = 0;
 	randCloud = 0;
-
+	
 	hurdleTimer = 0;
 	randHurdle = 0;
 }
@@ -36,9 +36,11 @@ void Game::draw()
 {
 	window->display();
 	window->clear(sf::Color::White);
+
 	window->draw(groundSprite);
 	window->draw(_groundSprite);
 	window->draw(pointsScoring);
+
 	dino->draw(window);
 
 	for (size_t i = 0; i < clouds.size(); i++) {
@@ -66,11 +68,14 @@ void Game::update()
 {
 	dino->control(time);
 	dino->update(time);
-	checkLose();
+
 	updateClouds();
 	updateHurdles();
-	points = points + 50 * time;
+
+	points += 50 * time;
 	pointsScoring.setString(std::to_string(points));
+
+	checkLose();
 }
 
 void Game::Run()
@@ -177,7 +182,8 @@ void Game::checkLose()
 {
 	for (size_t i = 0; i < hurdles.size(); i++)
 	{
-		if (checkCollision(dino->getX(), dino->getY(), dino->getRectW(), dino->getRectH(), hurdles[i]->getX(), hurdles[i]->getY(), hurdles[i]->getRectW(), hurdles[i]->getRectH()))
+		bool lose = checkCollision(dino->getX(), dino->getY(), dino->getRectW(), dino->getRectH(), hurdles[i]->getX(), hurdles[i]->getY(), hurdles[i]->getRectW(), hurdles[i]->getRectH());
+		if (lose)
 			gameOver = true;
 	}
 }

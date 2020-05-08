@@ -24,13 +24,16 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
+    <ClCompile Include="Hurdle.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Dino.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Cloud.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +47,13 @@
     <ClInclude Include="Menu.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Hurdle.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
+    <ClInclude Include="Dino.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

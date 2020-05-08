@@ -1,5 +1,5 @@
-﻿  Game.cpp
-c:\users\ayell\source\repos\game\game\game\game.cpp(16): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+﻿  Menu.cpp
+c:\users\semas\source\repos\gamebysfml\game\menu.cpp(16): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
           with
           [
               T=unsigned int
@@ -8,7 +8,7 @@ c:\users\ayell\source\repos\game\game\game\game.cpp(16): warning C4244: аргу
           [
               T=float
           ]
-c:\users\ayell\source\repos\game\game\game\game.cpp(22): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+c:\users\semas\source\repos\gamebysfml\game\menu.cpp(19): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
           with
           [
               T=unsigned int
@@ -17,7 +17,25 @@ c:\users\ayell\source\repos\game\game\game\game.cpp(22): warning C4244: аргу
           [
               T=float
           ]
-c:\users\ayell\source\repos\game\game\game\game.cpp(39): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+c:\users\semas\source\repos\gamebysfml\game\menu.cpp(20): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\semas\source\repos\gamebysfml\game\menu.cpp(23): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\semas\source\repos\gamebysfml\game\menu.cpp(48): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
           with
           [
               T=int
@@ -26,4 +44,4 @@ c:\users\ayell\source\repos\game\game\game\game.cpp(39): warning C4244: аргу
           [
               T=float
           ]
-  Game.vcxproj -> C:\Users\Ayell\source\repos\Game\game\x64\Debug\Game.exe
+  Game.vcxproj -> C:\Users\semas\source\repos\GameBySFML\x64\Debug\Game.exe

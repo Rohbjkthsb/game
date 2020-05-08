@@ -25,8 +25,7 @@ Menu::Menu(size_t _width, size_t _height)
 	music.openFromFile("Music/menu.wav");
 	music.play();
 	music.setLoop(true);
-	music.setVolume(60);
-	
+	music.setVolume(60);	
 }
 
 void Menu::draw()
@@ -90,7 +89,7 @@ void Menu::processEvents()
 				else
 				{
 					AudioBtn->Update(sf::Mouse::getPosition(*window), false);
-					//music.play();
+					music.play();
 				}
 			}
 		}
