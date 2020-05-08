@@ -17,13 +17,25 @@ Game::Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 	groundSprite.setPosition(0,450);
 	_groundSprite.setPosition(1280, 450);
 
-	font.loadFromFile("Fonts/Dino.ttf");
+	font.loadFromFile("Fonts/Dino.TTF");
 	pointsScoring.setFont(font);
 	points = 0;
-	pointsScoring.setString(std::to_string(points));
+	pointsScoring.setString("Your Score:" + std::to_string(points));
 	pointsScoring.setCharacterSize(16);
 	pointsScoring.setFillColor(sf::Color::Black);
 	pointsScoring.setPosition(10, 10);
+	
+	std::ifstream dataFile;
+	dataFile.open("GameScore.json");
+	nlohmann::json jsonData;
+	dataFile >> jsonData;
+	HighPoints = jsonData;
+
+	pointsHighScoring.setFont(font);
+	pointsHighScoring.setString("Your Highscore:" + std::to_string(HighPoints));
+	pointsHighScoring.setCharacterSize(16);
+	pointsHighScoring.setFillColor(sf::Color::Black);
+	pointsHighScoring.setPosition(10, 35);
 
 	cloudTimer = 0;
 	randCloud = 0;
@@ -40,6 +52,7 @@ void Game::draw()
 	window->draw(groundSprite);
 	window->draw(_groundSprite);
 	window->draw(pointsScoring);
+	window->draw(pointsHighScoring);
 
 	dino->draw(window);
 
@@ -73,7 +86,7 @@ void Game::update()
 	updateHurdles();
 
 	points += 50 * time;
-	pointsScoring.setString(std::to_string(points));
+	pointsScoring.setString("Your Score:" + std::to_string(points));
 
 	checkLose();
 }
@@ -97,6 +110,15 @@ void Game::Run()
 		{
 			retryBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/Return_Button.PNG", "Sprites/Game/Return_Button.PNG");
 			window->draw(*retryBtn->GetSpritePointer());
+
+			if (HighPoints < points)
+			{
+				std::ofstream dataFile("GameScore.json");
+				nlohmann::json jsonData;
+				jsonData = points;
+				dataFile << jsonData;
+				pointsHighScoring.setString("Your Highscore:" + std::to_string(points));
+			}
 		}
 
 		draw();
@@ -172,7 +194,8 @@ void Game::updateHurdles()
 
 void Game::addHurdle () 
 {
-	Hurdle *hurdle = new Hurdle();
+	HurdleCreator* hurdleCreator = new HurdleCreator();
+	Hurdle* hurdle = hurdleCreator->CreateHurdle();
 	hurdles.push_back(hurdle);
 	randHurdle = rand() % 75;
 	hurdleTimer = 0;

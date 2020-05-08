@@ -1,12 +1,1 @@
-﻿  Hurdle.cpp
-c:\users\semas\source\repos\gamebysfml\game\hurdle.cpp(95): warning C4244: return: преобразование "T" в "int", возможна потеря данных
-          with
-          [
-              T=float
-          ]
-c:\users\semas\source\repos\gamebysfml\game\hurdle.cpp(100): warning C4244: return: преобразование "T" в "int", возможна потеря данных
-          with
-          [
-              T=float
-          ]
-  Game.vcxproj -> C:\Users\semas\source\repos\GameBySFML\x64\Debug\Game.exe
+﻿  Game.vcxproj -> C:\Users\semas\source\repos\GameBySFML\x64\Debug\Game.exe

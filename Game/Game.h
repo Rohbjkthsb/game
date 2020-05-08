@@ -8,6 +8,8 @@
 #include "Hurdle.h"
 #include "Cloud.h"
 #include "Button.h"
+#include "nlohmann/json.hpp"
+#include <fstream>
 
 class Game
 {
@@ -24,10 +26,11 @@ private:
 	sf::Sprite _groundSprite;
 	sf::Clock clock;
 	sf::Text pointsScoring;
+	sf::Text pointsHighScoring;
 	sf::Font font;
 
 	Button* retryBtn;
-	Dino* dino;
+	Dino* dino; 
 
 	std::vector<Cloud*> clouds;
 	std::vector<Hurdle*> hurdles;
@@ -50,6 +53,7 @@ private:
 	float time;
 	float cloudTimer;
 	int points;
+	int HighPoints;
 	int randCloud;
 
 	float hurdleTimer;

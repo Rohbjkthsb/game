@@ -1,10 +1,10 @@
 #include "Hurdle.h"
 
-Hurdle::Hurdle()
+Hurdle::Hurdle(int type)
 {
-	k = rand() % 9;
+	this->type = type;
 
-	switch (k)
+	switch (type)
 	{
 	case 0:
 		hurdleTexture.loadFromFile("Sprites/Game/One_Cactus_Short.PNG");
@@ -71,15 +71,13 @@ void Hurdle::update(float time)
 	if (stepCount > 60)
 		stepCount = 0;
 
-	if (k == 2 || k==8)
+	if (type == 2 || type == 8)
 	{
 		if(stepCount>30)
 			hurdleTexture.loadFromFile("Sprites/Game/Pterodactyl_U.PNG");
 		else
 			hurdleTexture.loadFromFile("Sprites/Game/Pterodactyl_D.PNG");
 	}
-
-
 
 	position.x -= 10 * time;
 	hurdleSprite.setPosition(position);

@@ -34,6 +34,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hurdle.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

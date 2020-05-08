@@ -1,6 +1,6 @@
 #include "Cloud.h"
 
-Cloud::Cloud()
+Cloud::Cloud() 
 {
 	position = sf::Vector2f(1280, rand() % 50 + 300);
 
