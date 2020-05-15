@@ -7,7 +7,7 @@ Menu::Menu(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 	this->windowHeight = windowHeight;
 	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dino Chrome", sf::Style::Close);
 	window->setFramerateLimit(60);
-	icon.loadFromFile("Sprites/Game/Dino_Stand.PNG");
+	icon.loadFromFile("Dino_Stand.PNG");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
 	backgroundTexture.loadFromFile("Sprites/Game/ground.PNG");
