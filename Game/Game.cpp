@@ -1,10 +1,12 @@
 #include "Game.h"
+#include "Menu.h"
 
 Game::Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 {
 	this->window = window;
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
+
 	window->create(sf::VideoMode(static_cast<int>(windowWidth), static_cast<int>(windowHeight)), "Dino Chrome", sf::Style::Close);
 	icon.loadFromFile("Sprites/Game/Dino_Stand.PNG");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -17,9 +19,9 @@ Game::Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 	groundSprite.setPosition(0,450);
 	_groundSprite.setPosition(1280, 450);
 
+	points = 0;
 	font.loadFromFile("Fonts/Dino.TTF");
 	pointsScoring.setFont(font);
-	points = 0;
 	pointsScoring.setString("Your Score:" + std::to_string(points));
 	pointsScoring.setCharacterSize(16);
 	pointsScoring.setFillColor(sf::Color::Black);
@@ -42,11 +44,12 @@ Game::Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 	
 	hurdleTimer = 0;
 	randHurdle = 0;
+
+	speedFactor = 16000;
 }
 
 void Game::draw()
 {
-	window->display();
 	window->clear(sf::Color::White);
 
 	window->draw(groundSprite);
@@ -75,6 +78,13 @@ void Game::draw()
 			_groundSprite.move(-10.f * time, 0.f);
 		}
 	}
+	else
+	{
+		window->draw(*retryBtn->GetSpritePointer());
+		window->draw(*returnMenuBtn->GetSpritePointer());
+	}
+
+	window->display();
 }
 
 void Game::update()
@@ -88,7 +98,8 @@ void Game::update()
 	points += 50 * time;
 	pointsScoring.setString("Your Score:" + std::to_string(points));
 
-	checkLose();
+	if (!gameOver)
+		checkLose();
 }
 
 void Game::Run()
@@ -102,28 +113,17 @@ void Game::Run()
 	{
 		time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
-		time = time / 16000;
+		time = time / speedFactor;
+		speedFactor -= time;
 
 		if (!gameOver)
 			update();
-		else 
-		{
-			retryBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 75, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/Return_Button.PNG", "Sprites/Game/Return_Button.PNG");
-			window->draw(*retryBtn->GetSpritePointer());
-
-			if (HighPoints < points)
-			{
-				std::ofstream dataFile("GameScore.json");
-				nlohmann::json jsonData;
-				jsonData = points;
-				dataFile << jsonData;
-				pointsHighScoring.setString("Your Highscore:" + std::to_string(points));
-			}
-		}
 
 		draw();
 
 		sf::Event event;
+		sf::Vector2f mouse = sf::Vector2f(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+
 		while (window->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -131,38 +131,50 @@ void Game::Run()
 				exit = true;
 				break;
 			}
+
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 			{
-				if (retryBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+				if (gameOver)
 				{
-					dino->reDino();
-					hurdles.clear();
-					clouds.clear();
-					delete retryBtn;
-					points = 0;
-					gameOver = false;
+					if (retryBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+					{
+						dino->reDino();
+						hurdles.clear();
+						clouds.clear();
+						delete retryBtn;
+						points = 0;
+						speedFactor = 16000;
+						gameOver = false;
+						break;
+					}
+					else if (returnMenuBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
+					{
+						Menu menu(window, 1280, 720);
+						menu.Run();
+						exit = true;
+					}
 				}
 			}
 		}
 	}
 }
 
-
 void Game::updateClouds()
 {
 	cloudTimer += 1 * time;
 
-	for (size_t i = 0; i < clouds.size(); i++) {
+	for (size_t i = 0; i < clouds.size(); i++) 
+	{
 		clouds[i]->update(time);
-		if (clouds[i]->getX() < -100) {
+		if (clouds[i]->getX() < -100) 
+		{
 			delete clouds[i];
 			clouds.erase(clouds.begin() + i);
 		}
 	}
 
-	if (randCloud + 300 < cloudTimer) {
+	if (randCloud + 300 < cloudTimer) 
 		addCloud();
-	}
 }
 
 void Game::addCloud() 
@@ -187,9 +199,7 @@ void Game::updateHurdles()
 	}
 
 	if (randHurdle + 50 < hurdleTimer) 
-	{
 		addHurdle();
-	}
 }
 
 void Game::addHurdle () 
@@ -207,7 +217,21 @@ void Game::checkLose()
 	{
 		bool lose = checkCollision(dino->getX(), dino->getY(), dino->getRectW(), dino->getRectH(), hurdles[i]->getX(), hurdles[i]->getY(), hurdles[i]->getRectW(), hurdles[i]->getRectH());
 		if (lose)
+		{
 			gameOver = true;
+			retryBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 200, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/Return_Button.PNG", "Sprites/Game/Return_Button.PNG");
+			returnMenuBtn = new Button(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/ReturnMenuButton.PNG", "Sprites/Game/ReturnMenuButton.PNG");
+
+			if (HighPoints < points)
+			{
+				std::ofstream dataFile("GameScore.json");
+				nlohmann::json jsonData;
+				jsonData = points;
+				dataFile << jsonData;
+				pointsHighScoring.setString("Your Highscore:" + std::to_string(points));
+				HighPoints = points;
+			}
+		}
 	}
 }
 

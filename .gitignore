@@ -3,3 +3,7 @@
 !/Release/
 !/SFML-2.5.1/
 !/x64/
+!/Game/Debug/
+!/Game/x64/
+!/Game/Game.vcxproj
+!/Game/Game.vcxproj.*

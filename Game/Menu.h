@@ -7,7 +7,7 @@
 class Menu
 {
 public:
-	Menu(size_t windowWidth, size_t windowHeight);
+	Menu(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight);
 	~Menu();
 	void Run();
 
@@ -16,6 +16,7 @@ private:
 
 	void draw();
 	void processEvents();
+	void FakeDino();
 
 	sf::RenderWindow* window;
 	size_t windowHeight;
@@ -25,13 +26,19 @@ private:
 	sf::Sprite backgroundSprite;
 	sf::Music music;
 	sf::Image icon;
+	sf::Sprite dinoSprite;
+	sf::Texture dinoTexture;
+	sf::Texture dinoTextureRunL;
+	sf::Texture dinoTextureRunR;
+	sf::Text gameName;
+	sf::Clock clock;
+	sf::Font font;
 
 	Button* StartGameBtn;
 	Button* AudioBtn;
-	Button* ScoreBtn;
-	Button* ConfigBtn;
 	Button* QuitBtn;
 
-
+	float time;
+	float stepCount;
 	bool exit;
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Button
 {
@@ -17,7 +18,6 @@ public:
 	sf::Vector2i size;
 
 private:
-
 	sf::Texture pressTexture;
 	sf::Texture unpressTexture;
 

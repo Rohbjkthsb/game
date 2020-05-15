@@ -1,15 +1,15 @@
 #pragma once
-#include <vector>
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+#include "nlohmann/json.hpp"
+#include <iostream>
+#include <fstream>
+#include <vector>
 #include "Dino.h"
 #include "Hurdle.h"
 #include "Cloud.h"
 #include "Button.h"
-#include "nlohmann/json.hpp"
-#include <fstream>
 
 class Game
 {
@@ -30,6 +30,7 @@ private:
 	sf::Font font;
 
 	Button* retryBtn;
+	Button* returnMenuBtn;
 	Dino* dino; 
 
 	std::vector<Cloud*> clouds;
@@ -52,6 +53,7 @@ private:
 
 	float time;
 	float cloudTimer;
+	float speedFactor;
 	int points;
 	int HighPoints;
 	int randCloud;

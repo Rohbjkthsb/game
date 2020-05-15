@@ -19,15 +19,19 @@ public:
 
 private:
 	std::vector<sf::Texture> textures;
+
 	sf::Texture dinoStand;
 	sf::Texture dino_Run_R;
 	sf::Texture dino_Run_L;
 	sf::Texture dino_RunDown_R;
 	sf::Texture dino_RunDown_L;
+
 	sf::Clock clock;
+
 	sf::Vector2f position;
 	sf::Vector2f velocity;
 	sf::Vector2f gravity;
+
 	sf::Sprite dinoSprite;
 	sf::Texture dinoTexture;
 	sf::IntRect rect;

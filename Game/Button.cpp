@@ -1,7 +1,4 @@
 #include "Button.h"
-#include <iostream>
-#pragma warning(disable : 4996)
-
 
 Button::Button(sf::Vector2f _position, sf::Vector2i _size, std::string _pressTexture_src, std::string _unpressTexture_src)
 {
