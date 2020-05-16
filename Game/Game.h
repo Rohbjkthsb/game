@@ -28,6 +28,7 @@ private:
 	sf::Text pointsScoring;
 	sf::Text pointsHighScoring;
 	sf::Font font;
+	sf::Music music;
 
 	Button* retryBtn;
 	Button* returnMenuBtn;

@@ -39,6 +39,11 @@ Game::Game(sf::RenderWindow * window, size_t windowWidth, size_t windowHeight)
 	pointsHighScoring.setFillColor(sf::Color::Black);
 	pointsHighScoring.setPosition(10, 35);
 
+	music.openFromFile("Music/game.wav");
+	music.play();
+	music.setLoop(true);
+	music.setVolume(60);
+
 	cloudTimer = 0;
 	randCloud = 0;
 	
@@ -69,9 +74,9 @@ void Game::draw()
 
 	if (!gameOver)
 	{
-		if (groundSprite.getPosition().x < -1270)
+		if (groundSprite.getPosition().x < -1280)
 			groundSprite.setPosition(1280, 450);
-		if (_groundSprite.getPosition().x < -1270)
+		if (_groundSprite.getPosition().x < -1280)
 			_groundSprite.setPosition(1280, 450);
 		if (dino->checkDinoCenter()) {
 			groundSprite.move(-10.f * time, 0.f);
@@ -145,10 +150,12 @@ void Game::Run()
 						points = 0;
 						speedFactor = 16000;
 						gameOver = false;
+						music.play();
 						break;
 					}
 					else if (returnMenuBtn->GetSpritePointer()->getGlobalBounds().contains(mouse))
 					{
+						music.stop();
 						Menu menu(window, 1280, 720);
 						menu.Run();
 						exit = true;
@@ -221,6 +228,7 @@ void Game::checkLose()
 			gameOver = true;
 			retryBtn = new Button(sf::Vector2f(window->getSize().x / 2 - 200, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/Return_Button.PNG", "Sprites/Game/Return_Button.PNG");
 			returnMenuBtn = new Button(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2 - 75), sf::Vector2i(150, 150), "Sprites/Game/ReturnMenuButton.PNG", "Sprites/Game/ReturnMenuButton.PNG");
+			music.pause();
 
 			if (HighPoints < points)
 			{
